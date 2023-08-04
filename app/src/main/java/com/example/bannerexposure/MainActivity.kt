@@ -1,5 +1,6 @@
 package com.example.bannerexposure
 
+import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -118,8 +119,31 @@ class MainActivity : AppCompatActivity() {
         process(ExposureData(data = data[viewPager.currentItem % data.size]))
     }
 
-    fun click(view: View) {
+    fun next(view: View) {
         startActivity(Intent(this@MainActivity, SecondActivity::class.java))
+    }
+
+    fun sendOnShow(view: View) {
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+            putExtra("LIFECYCLE","onShow")
+        }
+        sendBroadcast(intent)
+    }
+
+    fun sendOnHide(view: View) {
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+            putExtra("LIFECYCLE","onHide")
+        }
+        sendBroadcast(intent)
+    }
+
+    fun sendNormal(view: View) {
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+            this.putExtras(Bundle().apply {
+                this.putIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(1,2,3))
+            })
+        }
+        sendBroadcast(intent)
     }
 }
 

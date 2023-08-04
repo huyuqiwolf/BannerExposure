@@ -21,100 +21,73 @@
             android:layout_margin="16dp" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            style="@style/BaseButton"
+            android:textAllCaps="false"
+            android:onClick="next"
+            android:text="next" />
+
+        <Button
+            style="@style/BaseButton"
+            android:onClick="sendOnShow"
+            android:text="sendOnShow" />
+
+        <Button
+            style="@style/BaseButton"
+            android:onClick="sendOnHide"
+            android:text="sendOnHide" />
+
+        <Button
+            style="@style/BaseButton"
+            android:onClick="sendNormal"
+            android:text="sendNormal" />
+
+        <Button
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:onClick="click"
-            android:text="click" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:onClick="click"
-            android:text="click" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:onClick="click"
-            android:text="click" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:onClick="click"
-            android:text="click" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+             style="@style/BaseButton"
             android:onClick="click"
             android:text="click" />
     </LinearLayout>
