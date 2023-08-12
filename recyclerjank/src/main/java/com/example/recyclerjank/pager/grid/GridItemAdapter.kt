@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.tracing.Trace
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestListener
@@ -21,9 +22,12 @@ class GridItemAdapter(
     class Holder(val binding: ItemGridBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(ItemGridBinding.inflate(LayoutInflater.from(parent.context))).apply {
+        Trace.beginSection("GridItemCreateView")
+        val holder =  Holder(ItemGridBinding.inflate(LayoutInflater.from(parent.context))).apply {
             binding.rootGridContainer.setBackgroundColor(color)
         }
+        Trace.endSection()
+        return holder
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -35,7 +39,6 @@ class GridItemAdapter(
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
-//                .listener(listener)
                 .into(holder.binding.ivLogo)
         }
     }

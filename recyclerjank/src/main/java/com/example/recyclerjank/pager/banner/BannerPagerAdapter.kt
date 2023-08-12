@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.tracing.Trace
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -24,12 +25,13 @@ class BannerPagerAdapter(private val services: List<BannerService>) : PagerAdapt
     override fun isViewFromObject(view: View, obj: Any) = view === obj
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        Trace.beginSection("BannerCreatePager")
         val binding = LayoutPagerBannerBinding.inflate(LayoutInflater.from(container.context))
         container.addView(binding.root)
         Glide.with(binding.ivBanner).load(services[position].bannerUrl.url)
-//            .listener(BannerLoadListener)
             .into(binding.ivBanner)
         Log.e(TAG, "instantiateItem: $position ${services[position]}")
+        Trace.endSection()
         return binding.root
     }
 

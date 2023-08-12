@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.tracing.Trace
 import com.bumptech.glide.request.RequestListener
 import com.example.recyclerjank.databinding.ItemListBinding
 import com.example.recyclerjank.ui.entity.ListService
@@ -22,13 +23,12 @@ class ListItemAdapter(
     class Holder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(ItemListBinding.inflate(LayoutInflater.from(parent.context))).apply {
+        Trace.beginSection("ListItemCreateView")
+        val holder = Holder(ItemListBinding.inflate(LayoutInflater.from(parent.context))).apply {
             binding.rootListContainer.setBackgroundColor(color)
-        }.apply {
-            binding.rootListItem.post {
-                Log.e("TAG","aaaaa ${binding.root.measuredHeight}")
-            }
         }
+        Trace.endSection()
+        return holder
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -36,10 +36,10 @@ class ListItemAdapter(
             holder.binding.tvTitle.text = title
             holder.binding.tvDesc.text = desc
             holder.binding.tvContent.text = content
-            Glide.with(holder.binding.ivLogo).load("https://img-blog.csdnimg.cn/20200620183713632.png")
+            Glide.with(holder.binding.ivLogo)
+                .load("https://img-blog.csdnimg.cn/20200620183713632.png")
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .listener(listener)
                 .into(holder.binding.ivLogo)
         }
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.tracing.Trace
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -33,6 +34,7 @@ class ListPagerAdapter(val services: List<ListService>, private val color: Int) 
     override fun isViewFromObject(view: View, obj: Any) = view === obj
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        Trace.beginSection("ListCreatePager")
         val binding = LayoutPagerListBinding.inflate(LayoutInflater.from(container.context))
         binding.recyclerView.layoutManager = GridLayoutManager(
             container.context,
@@ -40,11 +42,6 @@ class ListPagerAdapter(val services: List<ListService>, private val color: Int) 
             GridLayoutManager.VERTICAL,
             false
         )
-        binding.recyclerView.apply {
-            post {
-                Log.e("TAG","ddddddd ${this.measuredHeight}")
-            }
-        }
         binding.recyclerView.addItemDecoration(ListItemDecoration)
         binding.recyclerView.adapter =
             ListItemAdapter(ListListener, Constant.listDifferConfig, color).apply {
@@ -52,6 +49,7 @@ class ListPagerAdapter(val services: List<ListService>, private val color: Int) 
             }
         container.addView(binding.root)
         Log.e(TAG, "instantiateItem: $position ${services[position]}")
+        Trace.endSection()
         return binding.root
     }
 

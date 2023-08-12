@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.tracing.Trace
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -32,6 +33,7 @@ class GridPagerAdapter(private val services: List<GridService>, private val colo
     override fun isViewFromObject(view: View, obj: Any) = view === obj
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        Trace.beginSection("GridCreatePager")
         val binding = LayoutPagerGridBinding.inflate(LayoutInflater.from(container.context))
         binding.recyclerView.layoutManager = GridLayoutManager(
             container.context,
@@ -46,6 +48,7 @@ class GridPagerAdapter(private val services: List<GridService>, private val colo
             }
         container.addView(binding.root)
         Log.e(TAG, "instantiateItem: $position ${services[position]}")
+        Trace.endSection()
         return binding.root
     }
 
