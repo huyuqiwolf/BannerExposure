@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerjank.databinding.ActivityMainBinding
+import com.example.recyclerjank.pager.ViewCache
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,5 +22,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         adapter.submitList(MockDataFactory.getData(this))
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        ViewCache.clear()
+        finish()
     }
 }

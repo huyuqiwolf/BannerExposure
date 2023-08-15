@@ -16,6 +16,7 @@ import com.example.recyclerjank.databinding.LayoutPagerGridBinding
 import com.example.recyclerjank.ui.entity.GridService
 import com.example.recyclerjank.pager.Constant
 import com.example.recyclerjank.pager.GridItemDecoration
+import com.example.recyclerjank.pager.ViewCache
 import com.example.recyclerjank.ui.entity.LayoutType
 
 private const val TAG = "${Constant.TAG}Grid:"
@@ -34,14 +35,10 @@ class GridPagerAdapter(private val services: List<GridService>, private val colo
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         Trace.beginSection("GridCreatePager")
-        val binding = LayoutPagerGridBinding.inflate(LayoutInflater.from(container.context))
-        binding.recyclerView.layoutManager = GridLayoutManager(
-            container.context,
-            LayoutType.Grid.colums,
-            GridLayoutManager.VERTICAL,
-            false
-        )
-        binding.recyclerView.addItemDecoration(GridItemDecoration)
+//        val binding = LayoutPagerGridBinding.inflate(LayoutInflater.from(container.context))
+        val binding = ViewCache.getGridLayout(container.context)
+
+
         binding.recyclerView.adapter =
             GridItemAdapter(GridListener, Constant.gridDifferConfig, color).apply {
                 submitList(getData(position))
@@ -55,6 +52,7 @@ class GridPagerAdapter(private val services: List<GridService>, private val colo
     override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
         if (obj is View) {
             container.removeView(obj)
+            ViewCache.putGridLayout(obj.tag as LayoutPagerGridBinding)
             Log.e(TAG, "destroyItem: $position ${services[position]}")
         }
     }

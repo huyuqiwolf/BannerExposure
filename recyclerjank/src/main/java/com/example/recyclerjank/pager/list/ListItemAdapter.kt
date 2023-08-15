@@ -13,6 +13,7 @@ import com.example.recyclerjank.databinding.ItemListBinding
 import com.example.recyclerjank.ui.entity.ListService
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.recyclerjank.pager.ViewCache
 
 
 class ListItemAdapter(
@@ -24,11 +25,17 @@ class ListItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         Trace.beginSection("ListItemCreateView")
-        val holder = Holder(ItemListBinding.inflate(LayoutInflater.from(parent.context))).apply {
-            binding.rootListContainer.setBackgroundColor(color)
-        }
+//        val holder = Holder(ItemListBinding.inflate(LayoutInflater.from(parent.context))).apply {
+//            binding.rootListContainer.setBackgroundColor(color)
+//        }
+        val holder = ViewCache.getListView(parent.context)
         Trace.endSection()
         return holder
+    }
+
+    override fun onViewRecycled(holder: Holder) {
+        super.onViewRecycled(holder)
+        ViewCache.putListView(holder)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

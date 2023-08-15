@@ -16,6 +16,7 @@ import com.example.recyclerjank.databinding.LayoutPagerListBinding
 import com.example.recyclerjank.ui.entity.ListService
 import com.example.recyclerjank.pager.Constant
 import com.example.recyclerjank.pager.ListItemDecoration
+import com.example.recyclerjank.pager.ViewCache
 import com.example.recyclerjank.pager.grid.GridPagerAdapter
 import com.example.recyclerjank.ui.entity.GridService
 import com.example.recyclerjank.ui.entity.LayoutType
@@ -35,14 +36,9 @@ class ListPagerAdapter(val services: List<ListService>, private val color: Int) 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         Trace.beginSection("ListCreatePager")
-        val binding = LayoutPagerListBinding.inflate(LayoutInflater.from(container.context))
-        binding.recyclerView.layoutManager = GridLayoutManager(
-            container.context,
-            LayoutType.List.colums,
-            GridLayoutManager.VERTICAL,
-            false
-        )
-        binding.recyclerView.addItemDecoration(ListItemDecoration)
+//        val binding = LayoutPagerListBinding.inflate(LayoutInflater.from(container.context))
+        val binding = ViewCache.getListLayout(container.context)
+
         binding.recyclerView.adapter =
             ListItemAdapter(ListListener, Constant.listDifferConfig, color).apply {
                 submitList(getData(position))
@@ -56,6 +52,7 @@ class ListPagerAdapter(val services: List<ListService>, private val color: Int) 
     override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
         if (obj is View) {
             container.removeView(obj)
+            ViewCache.putListLayout(obj.tag as LayoutPagerListBinding)
             Log.e(TAG, "destroyItem: $position ${services[position]}")
         }
     }
